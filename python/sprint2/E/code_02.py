@@ -12,16 +12,16 @@ if LOCAL:
 
 
 def solution(node):
-    node_prev = node.next
+    # меняем местами next и prev для head
+    node_iter = node.next
     node.next = None
-    node.prev = node_prev
-    while node_prev:
-        node_prev.prev = node_prev.next
-        node_prev.next = node
-        node = node_prev
-        node_prev = node_prev.prev
-        print(node.value, node.next.value if node.next else None,
-              node.prev.value if node.prev else None)
+    node.prev = node_iter
+    while node_iter:
+        # меняем местами next и prev для последующей node (node_iter)
+        node_iter.prev = node_iter.next
+        node_iter.next = node
+        node = node_iter
+        node_iter = node_iter.prev
     return node
 
 
