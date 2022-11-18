@@ -30,14 +30,14 @@ class Deque:
 
     Сложность работы алгоритма определяется как O(1)
 
-    Тестовый прогон:
+    Отладка:
     q = Deque(4)
     q.push_front(861)
     q.push_front(-819)
     q.pop_back()
-    q.print_deque()
+    q._print_deque()
     q.pop_front()
-    q.print_deque()
+    q._print_deque()
 
     """
 
@@ -61,8 +61,7 @@ class Deque:
             self._tail = node
             self._deque_size += 1
         elif self.maximum == self._deque_size:
-            print('error')
-            # raise Exception('error')
+            raise OverflowError
         else:
             node = Node(value)
             node_prev = self._tail
@@ -78,7 +77,7 @@ class Deque:
             self._tail = node
             self._deque_size += 1
         elif self.maximum == self._deque_size:
-            print('error')
+            raise OverflowError
         else:
             node = Node(value)
             node.next = self._head
@@ -88,7 +87,7 @@ class Deque:
             self._head = node
             self._deque_size += 1
 
-    def print_deque(self):
+    def _print_deque(self):
         if self.is_empty():
             print('None')
             return
@@ -100,8 +99,7 @@ class Deque:
 
     def pop_front(self):
         if self.is_empty():
-            print('error')
-            return
+            raise IndexError
         h = self._head
         self._head = self._head.next
         self._deque_size -= 1
@@ -110,8 +108,7 @@ class Deque:
 
     def pop_back(self):
         if self.is_empty():
-            print('error')
-            return
+            raise IndexError
         if self._deque_size == 1:
             t = self._tail
             self._head = None
@@ -140,10 +137,22 @@ if __name__ == '__main__':
     for i in range(count):
         lst_in = input().split()
         if lst_in[0] == 'push_front':
-            q.push_front(int(lst_in[1]))
+            try:
+                q.push_front(int(lst_in[1]))
+            except OverflowError:
+                print('error')
         elif lst_in[0] == 'push_back':
-            q.push_back(int(lst_in[1]))
+            try:
+                q.push_back(int(lst_in[1]))
+            except OverflowError:
+                print('error')
         elif lst_in[0] == 'pop_front':
-            q.pop_front()
+            try:
+                q.pop_front()
+            except IndexError:
+                print('error')
         elif lst_in[0] == 'pop_back':
-            q.pop_back()
+            try:
+                q.pop_back()
+            except IndexError:
+                print('error')
