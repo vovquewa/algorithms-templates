@@ -1,1 +1,2 @@
-print(7 % 7)
+if True:
+    raise Exception('test')
